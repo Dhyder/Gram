@@ -6,3 +6,5 @@ from rest_framework.views import APIView
 from django.views.generic import RedirectView
 from .forms import SignUpForm, UpdateUserForm, UpdateUserProfileForm, PostForm, CommentForm
 from django.contrib.auth import login, authenticate
+from rest_framework.response import Response
+from django.template.loader import render_to_string
