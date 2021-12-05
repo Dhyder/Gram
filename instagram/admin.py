@@ -3,3 +3,4 @@ from .models import Profile, Post, Comment, Follow
 
 # Register your models here.
 admin.site.register(Profile)
+admin.site.register(Follow)
