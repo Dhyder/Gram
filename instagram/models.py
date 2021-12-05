@@ -48,3 +48,19 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f"/post/{self.id}"
+
+        @property
+    def get_all_comments(self):
+        return self.comments.all()
+
+    def save_image(self):
+        self.save()
+
+    def delete_image(self):
+        self.delete()
+
+    def total_likes(self):
+        return self.likes.count()
+
+    def __str__(self):
+        return f'{self.user.name} Post'
