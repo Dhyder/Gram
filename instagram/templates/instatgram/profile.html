@@ -1,0 +1,91 @@
+{% extends 'instagram/layout.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container" style="margin-top:8%">
+    <div class="content-section">
+        <div class="media">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        <img class="rounded-circle account-img" src="{{ user.profile.profile_picture.url }}" alt="Update Profile">
+                    </div>
+                    <div class="col-md-6 mt-3">
+                        <div class="media-body">
+                            <div class="account-heading"><span class="mr-3 text-secondary username">{{ user.username }}</span>
+                                <button class="btn btn-sm btn-info mr-3" data-toggle="modal" data-target=".bd-example-modal-md">Edit<img style="width:20px;height:20px;margin-left: 10px;" src="/static/images/pencil (1).png"></button>
+                                <a class="mt-3" data-toggle="modal" data-target="#ModalCenter" href=""><img style="width: 25px;height:25px;" src="/static/images/settings.png"></img></a>
+                            </div>
+
+                            <div class="post-details mt-3 mb-3">
+                                <span class="mr-5"><strong>{{images.count}}</strong> Posts</span>
+                                <span class="mr-5"> <strong>{{ user.profile.followers.count }}</strong> followers</span>
+                                <span class="mr-5"> <strong>{{ user.profile.following.count }}</strong> following</span>
+                            </div>
+                            <h5>{{ user.profile.name }}</h5>
+                            <p class="text-secondary">{{ user.profile.bio }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-sm" id="ModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content" style="border-radius: 15px;height: 565px;background-image: url(/static/images/try7.jpg);background-size: cover;background-repeat: no-repeat">
+                    <div class="modal-body">
+                        <a class="D-block mx-auto text-dark" href="">Change Password</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Nametag</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Apps and Websites</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Notifications</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Privacy and Security</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Login Activity</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Emails from Instagram</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="">Report a Problem</a>
+                        <hr>
+                        <a class="D-block mx-auto text-dark" href="{% url 'logout' %}">Log Out</a>
+                        <hr>
+                        <a class="D-block mx-auto text-danger" href="" data-dismiss="modal">Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-md ">
+                <div class="modal-content" style="background-image: url(/static/images/try3.jpg);background-size: cover;background-repeat: no-repeat">
+                    <form action="" method="post" novalidate enctype="multipart/form-data" class="mr-4 mt-4 ml-4 mb-4" style="color: white;text-shadow: 2px 2px 4px black;">
+                        {% csrf_token%}
+                        {{ user_form|crispy}}
+                        {{ prof_form|crispy}}
+                        <button type="submit" class="btn btn-success btn-sm">Update<img style="width: 25px;height:25px;margin-left: 10px;" src="/static/images/system-update (1).png"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr class="mt-4">
+    <div class="text-center">POSTS</div>
+    <div class="card-columns">
+        {% for image in images %}
+            <div class="card">
+                <div class="card-body">
+                    <img src="{{image.image.url}}" alt="{{image.caption}}" class="card-img">
+                    <p id="overlay"class="text"> 
+                        <img style="width:30px;height:30px;" src="/static/images/heart.png">
+                            <span style="color: white">{{image.likes.count}}</span>
+                            <img style="width:30px;height:30px;" src="/static/images/comment (1).png"> <span style="color: white">{{image.comments.count}}</span></p>
+                    
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
