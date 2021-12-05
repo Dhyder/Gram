@@ -8,3 +8,5 @@ from .forms import SignUpForm, UpdateUserForm, UpdateUserProfileForm, PostForm, 
 from django.contrib.auth import login, authenticate
 from rest_framework.response import Response
 from django.template.loader import render_to_string
+from django.contrib.auth.decorators import login_required
+from rest_framework import authentication, permissions
